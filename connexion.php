@@ -47,15 +47,29 @@ if(isset($_POST["valider"])){
 </head>
 <body>
     <header><?php include("header.php");?></header>
+    
     <main class="main_connect">
-        <div class="box">
-            <h1>Se connecter</h1>
 
-            <?php if($error): ?>
+    <?php if(isset($_GET["access_denied"])):?>
+
+    <div class="error">
+
+        <p><?php echo "Veuillez vous connecter pour accéder au chat"; ?></p>
+        
+    </div>
+
+    <?php endif; ?>
+        <?php if($error): ?>
             <div class="error">
             <p><?=  $error ?></p>
             </div>
             <?php endif; ?>
+        <div class="box">
+            
+
+            <h1>Se connecter</h1>
+
+           
 
             <form action="" method="POST">
                 

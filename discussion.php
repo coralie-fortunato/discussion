@@ -7,10 +7,12 @@ date_default_timezone_set('Europe/Paris');
 $db= mysqli_connect("localhost","root","","discussion");
 
 if(!isset($_SESSION["id"])){
-    header("Location:index.php");
+    
+    header("Location:connexion.php?access_denied");
+    
 }
 
-if(isset($_POST['send'])){
+if(isset($_POST['send']) && !empty($_POST['message']) ){
     $message=htmlspecialchars($_POST['message']);
     $id_user=$_POST['id_user'];
     $date= date('Y-m-d H:i:s');
@@ -18,6 +20,7 @@ if(isset($_POST['send'])){
    mysqli_query($db, $req_msg);
    header("Location: discussion.php");
 }
+
 $req_fetch_msg="SELECT *
                 FROM utilisateurs 
                 LEFT JOIN messages 
@@ -34,7 +37,7 @@ $data_msg= mysqli_fetch_all($query_msg, MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="src/font/fontello/css/fontello.css">
-    <title>Ca discute</title>
+    <title>Chat</title>
 </head>
 <body>
     <header><?php include("header.php");?></header>
@@ -44,15 +47,23 @@ $data_msg= mysqli_fetch_all($query_msg, MYSQLI_ASSOC);
         <div class="message">
             <?php for($i=0; $i <count($data_msg); $i++){?>
             <div class="msg_content">
-                
-            <span class="user_info"><?php echo $data_msg[$i]["login"] . " " .$data_msg[$i]["date"]?></span>
+            <?php
+            $date_us_format=$data_msg[$i]["date"];
+            $date_new_format= date('d/m/Y', strtotime($date_us_format));
+            ?>  
+            <span class="user_info"><?= $data_msg[$i]["login"] . " "."posté le". " ". $date_new_format ?></span>
 
-            <p><?= $data_msg[$i]["message"]?></p>
+            <p>
+                <?php $msg=$data_msg[$i]["message"];
+                    $new_msg= wordwrap($msg, 50,"<br/>\r \n", true);
+                    echo $new_msg ;
+                ?>
+            </p>
             </div>
             <?php }?>  
 
         </div>
-             
+         
 
         <div class="add_comment">
             <form action="" method="post">

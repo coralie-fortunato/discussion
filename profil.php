@@ -32,6 +32,9 @@ if(isset($_POST["valider"])){
             
         }
     }
+    else{
+        header("Location:profil.php");
+    }
    
 }
 if(isset($_POST["modifier"])){
@@ -40,7 +43,7 @@ if(isset($_POST["modifier"])){
     $password_confirm= htmlentities($_POST["password_confirm"]);
     if(!empty($password) && !empty($password_confirm)){
         if($password === $password_confirm ){
-            $req_update2="UPDATE `utilisateurs` SET `password`= '$password_confirm' WHERE login= '$login'" ;
+            $req_update2="UPDATE `utilisateurs` SET `password`= '$pwd_hash' WHERE login= '$login'" ;
             mysqli_query($db, $req_update2);
             header("Location:profil.php?success");
         }
@@ -48,6 +51,9 @@ if(isset($_POST["modifier"])){
             
             $error_pwd="Mot de passe différent";
         }
+    }
+    else{
+        header("Location:profil.php");
     }
 
 }
@@ -67,7 +73,7 @@ if(isset($_POST["modifier"])){
     <header>
     <?php include("header.php");?>  
     </header>
-    <main class="main_form">
+    <main class="main_profile">
         <h1>Modifier votre profil</h1>
 
         <?php if($error_login): ?>
@@ -88,7 +94,7 @@ if(isset($_POST["modifier"])){
         <?php endif; ?>
 
 
-    <form action="" method="post">
+    <form action="" method="post" class="form_profile">
     <?php if(!isset($_GET["login"])):?>
         <div class="form_items">
             <label>Login</label>

@@ -40,7 +40,7 @@ if (isset($_POST["valider"])){
 </head>
 <body>
     <header><?php include("header.php");?> </header>
-    <main class="main_form">
+    <main class="main_register">
         <h1>Inscription</h1>
         <?php if($error_login): ?>
         <div class="error">
@@ -52,13 +52,15 @@ if (isset($_POST["valider"])){
           <p><?=  $error_password ?></p>
         </div>
         <?php endif; ?>
-        <form action="" method="post">
-            <input type="text" name="login" placeholder="Votre login">
-            <input type="password" name="password" placeholder="Votre mot de passe">
-            <input type="password" name="confirm_password" placeholder="Confirmation de mot de passe">
-            <button type="submit" name="valider">Valider</button>
+        <div class="box"> 
+            <form action="" method="post">
+                <input type="text" name="login" placeholder="Votre login">
+                <input type="password" name="password" placeholder="Votre mot de passe">
+                <input type="password" name="confirm_password" placeholder="Confirmation de mot de passe">
+                <button type="submit" name="valider">Valider</button>
 
-        </form>
+            </form>
+        </div> 
     </main>
     <footer><?php include("footer.php");?></footer>
     
