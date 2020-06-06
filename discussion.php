@@ -16,7 +16,7 @@ if(isset($_POST['send']) && !empty($_POST['message']) ){
     $message=htmlspecialchars($_POST['message']);
     $id_user=$_POST['id_user'];
     $date= date('Y-m-d H:i:s');
-   $req_msg=" INSERT INTO `messages`( `message`, `id_utilisateur`, `date`) VALUES ('$message', '$id_user', '$date')";
+   $req_msg=" INSERT INTO `messages`( `message`, `id_utilisateur`, `date`) VALUES ('$message', '$id_user', '$date')" ;
    mysqli_query($db, $req_msg);
    header("Location: discussion.php");
 }

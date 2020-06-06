@@ -1,9 +1,14 @@
-<h1>Mon Site</h1>
+<h1>Mon Blog</h1>
 <nav>
     
     <ul >
         <li class="icon_menu">
         <ul class="menu" id="submenu">
+             <?php if(isset($_SESSION["login"])):?>
+
+             <li><span class="hello_user">Bonjour <?= $_SESSION["login"] ?></span> </li>
+             
+            <?php endif?>
             <?php
             
             $page= $_SERVER['PHP_SELF'];
@@ -11,9 +16,7 @@
             if($page!=='/discussion/index.php'):?>
             <li><a href="index.php">Accueil</a></li>
             <?php endif?>
-            <?php if(isset($_SESSION["login"])):?>
-                <li><span class="hello_user">Bonjour <?= $_SESSION["login"] ?></span> </li>
-            <?php endif?>
+          
             <li><a href="discussion.php">Chat</a></li>
             <?php if(isset($_SESSION["login"])):?>
                 
